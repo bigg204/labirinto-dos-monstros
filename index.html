@@ -14,340 +14,251 @@
 
 body {
     margin: 0;
-    background: #050509;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #211538, #050508 65%);
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
-    overflow-x: hidden;
 }
 
 h1 {
     color: #d8b4ff;
     text-shadow: 0 0 15px #7c3aed;
-    margin-bottom: 5px;
+    margin: 15px 0 5px;
+}
+
+#screen {
+    width: 100%;
+}
+
+#menu {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+}
+
+#menu h2 {
+    color: #ffcc00;
+}
+
+.levels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.level-button {
+    min-height: 100px;
+    border: 2px solid #555;
+    border-radius: 12px;
+    background: #161622;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.level-button:hover:not(:disabled) {
+    transform: scale(1.05);
+    border-color: #9b6cff;
+    background: #29203f;
+}
+
+.level-button.unlocked {
+    border-color: #7c3aed;
+}
+
+.level-button.completed {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.level-button:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+.level-number {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+#gameScreen {
+    display: none;
 }
 
 #info {
-    margin: 10px;
-    font-size: 17px;
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 10px;
+    background: rgba(15,15,25,.8);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#info span {
+    margin: 0 5px;
 }
 
 #game {
     position: relative;
-
     width: 800px;
     max-width: 95vw;
-
     aspect-ratio: 20 / 12;
-
     margin: auto;
-
     background: #101015;
-
     border: 4px solid #39394d;
-
     overflow: hidden;
-
-    box-shadow:
-        0 0 30px #000;
+    box-shadow: 0 0 30px #000;
 }
-
-
-/* ===================================
-   PAREDES
-=================================== */
 
 .wall {
-
     position: absolute;
-
     width: 5%;
     height: 8.333%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #353545,
-            #171720
-        );
-
+    background: linear-gradient(135deg,#353545,#171720);
     border: 1px solid #48485c;
-
 }
 
-
-/* ===================================
-   PERSONAGEM
-=================================== */
+#player,
+#key,
+#door,
+.monster {
+    position: absolute;
+    width: 5%;
+    height: 8.333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #player {
-
-    position: absolute;
-
-    width: 5%;
-    height: 8.333%;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    font-size: 28px;
-
     z-index: 10;
-
-    transition:
-        left .08s,
-        top .08s;
-
-    filter:
-        drop-shadow(
-            0 0 8px #00eaff
-        );
+    font-size: 28px;
+    filter: drop-shadow(0 0 8px #00eaff);
 }
-
-
-/* ===================================
-   CHAVE
-=================================== */
 
 #key {
-
-    position: absolute;
-
-    width: 5%;
-    height: 8.333%;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
+    z-index: 5;
     font-size: 27px;
-
-    z-index: 4;
-
     animation: keyGlow 1s infinite;
-
 }
-
-
-@keyframes keyGlow {
-
-    0%,100% {
-        filter:
-            drop-shadow(
-                0 0 5px gold
-            );
-    }
-
-    50% {
-        filter:
-            drop-shadow(
-                0 0 20px gold
-            );
-    }
-
-}
-
-
-/* ===================================
-   PORTA
-=================================== */
 
 #door {
-
-    position: absolute;
-
-    width: 5%;
-    height: 8.333%;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
+    z-index: 5;
     font-size: 28px;
-
-    z-index: 4;
-
 }
-
-
-/* ===================================
-   MONSTROS
-=================================== */
 
 .monster {
-
-    position: absolute;
-
-    width: 5%;
-    height: 8.333%;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
+    z-index: 7;
     font-size: 28px;
-
-    z-index: 6;
-
 }
-
 
 .hunter {
-
-    filter:
-        drop-shadow(
-            0 0 12px red
-        );
-
+    filter: drop-shadow(0 0 12px red);
 }
-
 
 .trap {
-
-    filter:
-        drop-shadow(
-            0 0 10px purple
-        );
-
+    filter: drop-shadow(0 0 10px purple);
 }
-
-
-/* ===================================
-   VISÃO DO MONSTRO
-=================================== */
-
-#danger {
-
-    position: absolute;
-
-    top: 8px;
-    left: 10px;
-
-    background: rgba(120,0,0,.7);
-
-    padding: 7px 12px;
-
-    border-radius: 8px;
-
-    font-weight: bold;
-
-    display: none;
-
-    z-index: 50;
-
-    animation: dangerBlink .5s infinite;
-
-}
-
-
-@keyframes dangerBlink {
-
-    50% {
-        opacity: .4;
-    }
-
-}
-
-
-/* ===================================
-   LANterna
-=================================== */
 
 #darkness {
-
     position: absolute;
-
     inset: 0;
-
     z-index: 20;
-
     pointer-events: none;
-
-    /*
-       A posição do buraco da lanterna
-       é alterada pelo JavaScript.
-    */
-
-    background:
-        radial-gradient(
-            circle 110px at 50% 50%,
-            transparent 0px,
-            rgba(0,0,0,.15) 45px,
-            rgba(0,0,0,.65) 90px,
-            rgba(0,0,0,.94) 150px,
-            #000 220px
-        );
-
 }
 
+#danger {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    z-index: 30;
+    background: rgba(130,0,0,.8);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: none;
+    animation: dangerBlink .5s infinite;
+}
 
-/* ===================================
-   MENSAGEM
-=================================== */
+@keyframes dangerBlink {
+    50% { opacity: .4; }
+}
+
+@keyframes keyGlow {
+    0%,100% {
+        filter: drop-shadow(0 0 5px gold);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 20px gold);
+    }
+}
 
 #message {
-
     min-height: 28px;
-
     margin: 12px;
-
     font-size: 18px;
-
-    color: #cfcfcf;
-
+    font-weight: bold;
 }
 
-
-/* ===================================
-   BOTÕES
-=================================== */
-
 button {
-
     padding: 11px 18px;
-
     margin: 4px;
-
     border: none;
-
     border-radius: 8px;
-
     background: #6038c9;
-
     color: white;
-
     font-size: 17px;
-
     cursor: pointer;
-
 }
 
 button:hover {
-
     background: #8058ed;
-
 }
 
+#backButton {
+    background: #444;
+}
 
 .controls {
-
     margin-top: 5px;
-
 }
-
 
 .controls button {
-
     width: 58px;
     height: 48px;
-
 }
 
+#timer {
+    color: #ff5555;
+    font-weight: bold;
+}
+
+#victory {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0,0,0,.9);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#victory h2 {
+    color: #00ff88;
+    font-size: 35px;
+}
+
+#victory p {
+    font-size: 19px;
+}
 
 @media(max-width:600px) {
 
@@ -355,74 +266,124 @@ button:hover {
         font-size: 22px;
     }
 
+    .levels {
+        grid-template-columns: repeat(2,1fr);
+    }
+
     #info {
-        font-size: 14px;
+        font-size: 13px;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
+<div id="screen">
 
-<h1>🌑 LABIRINTO SOMBRIO</h1>
+    <div id="menu">
 
+        <h1>🌑 LABIRINTO SOMBRIO</h1>
 
-<div id="info">
+        <h2>Escolha uma fase</h2>
 
-🔑 Chave:
-<span id="keyStatus">NÃO</span>
+        <p>
+            🔑 Encontre as chaves, fuja do 👹 perseguidor
+            e chegue até a 🚪 saída.
+        </p>
 
-&nbsp;&nbsp;
+        <div class="levels" id="levels"></div>
 
-❤️ Vidas:
-<span id="lives">3</span>
+        <button onclick="resetProgress()">
+            🗑️ Apagar progresso
+        </button>
 
-&nbsp;&nbsp;
-
-👁️:
-<span id="hunterStatus">PROCURANDO</span>
-
-</div>
-
-
-<div id="game">
-
-    <div id="danger">
-        ⚠️ O MONSTRO ESTÁ TE VENDO!
     </div>
 
-    <div id="darkness"></div>
 
-</div>
+    <div id="gameScreen">
+
+        <h1 id="levelTitle">
+            FASE 1
+        </h1>
+
+        <div id="info">
+
+            🔑 Chaves:
+            <span id="keyStatus">0/1</span>
+
+            ❤️ Vidas:
+            <span id="lives">3</span>
+
+            👹:
+            <span id="hunterStatus">PROCURANDO</span>
+
+            ⏱️:
+            <span id="timer">∞</span>
+
+        </div>
 
 
-<div id="message">
-    Encontre a chave...
-</div>
+        <div id="game">
+
+            <div id="danger">
+                ⚠️ ELE ESTÁ TE VENDO!
+            </div>
+
+            <div id="darkness"></div>
+
+            <div id="victory">
+
+                <h2>🎉 FASE CONCLUÍDA!</h2>
+
+                <p id="victoryText">
+                    Você conseguiu escapar!
+                </p>
+
+                <button onclick="nextLevel()">
+                    ▶ Próxima fase
+                </button>
+
+                <button onclick="showMenu()">
+                    🏠 Menu
+                </button>
+
+            </div>
+
+        </div>
 
 
-<button onclick="restartGame()">
-    🔄 Reiniciar
-</button>
+        <div id="message">
+            Encontre a chave...
+        </div>
 
 
-<div class="controls">
+        <button onclick="restartLevel()">
+            🔄 Reiniciar fase
+        </button>
 
-    <div>
-        <button onclick="move(0,-1)">⬆️</button>
-    </div>
+        <button id="backButton" onclick="showMenu()">
+            🏠 Fases
+        </button>
 
-    <div>
-        <button onclick="move(-1,0)">⬅️</button>
 
-        <button onclick="move(0,1)">⬇️</button>
+        <div class="controls">
 
-        <button onclick="move(1,0)">➡️</button>
+            <div>
+                <button onclick="move(0,-1)">⬆️</button>
+            </div>
+
+            <div>
+                <button onclick="move(-1,0)">⬅️</button>
+                <button onclick="move(0,1)">⬇️</button>
+                <button onclick="move(1,0)">➡️</button>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
@@ -431,17 +392,68 @@ button:hover {
 <script>
 
 
-// ==========================================
-// CONFIGURAÇÃO
-// ==========================================
+// ==================================================
+// FASES
+// ==================================================
 
-const COLS = 20;
-const ROWS = 12;
+const levels = [
+
+    {
+        name: "O Começo",
+        hunterSpeed: 900,
+        vision: 10,
+        flashlight: 125,
+        traps: 2,
+        keys: 1,
+        time: 0
+    },
+
+    {
+        name: "Escuridão",
+        hunterSpeed: 750,
+        vision: 11,
+        flashlight: 105,
+        traps: 3,
+        keys: 1,
+        time: 0
+    },
+
+    {
+        name: "A Caçada",
+        hunterSpeed: 600,
+        vision: 12,
+        flashlight: 90,
+        traps: 4,
+        keys: 1,
+        time: 0
+    },
+
+    {
+        name: "Pesadelo",
+        hunterSpeed: 500,
+        vision: 13,
+        flashlight: 75,
+        traps: 5,
+        keys: 2,
+        time: 120
+    },
+
+    {
+        name: "A Fuga",
+        hunterSpeed: 350,
+        vision: 15,
+        flashlight: 60,
+        traps: 6,
+        keys: 2,
+        time: 90
+    }
+
+];
 
 
-// ==========================================
+// ==================================================
 // MAPA
-// ==========================================
+// ==================================================
 
 const map = [
 
@@ -471,27 +483,42 @@ const map = [
 
 ];
 
+const COLS = 20;
+const ROWS = 12;
 
-// ==========================================
+
+// ==================================================
 // VARIÁVEIS
-// ==========================================
+// ==================================================
+
+let currentLevel = 0;
 
 let player;
 
-let monsters;
+let hunter;
 
-let key;
+let traps = [];
+
+let keys = [];
 
 let door;
 
-let hasKey = false;
+let playing = false;
 
 let lives = 3;
 
-let playing = true;
+let keysCollected = 0;
 
-let hunting = false;
+let timerValue = 0;
 
+let timerInterval;
+
+let hunterInterval;
+
+
+// ==================================================
+// ELEMENTOS
+// ==================================================
 
 const game =
     document.getElementById("game");
@@ -500,20 +527,160 @@ const darkness =
     document.getElementById("darkness");
 
 
-// ==========================================
+// ==================================================
+// PROGRESSO
+// ==================================================
+
+function getProgress() {
+
+    return parseInt(
+        localStorage.getItem(
+            "labyrinthProgress"
+        ) || "1"
+    );
+
+}
+
+
+function setProgress(value) {
+
+    localStorage.setItem(
+        "labyrinthProgress",
+        value
+    );
+
+}
+
+
+// ==================================================
+// MENU
+// ==================================================
+
+function createLevelMenu() {
+
+    const container =
+        document.getElementById("levels");
+
+    container.innerHTML = "";
+
+    const unlocked =
+        getProgress();
+
+
+    levels.forEach(function(level,index) {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "level-button";
+
+        if(index < unlocked) {
+
+            button.classList.add(
+                "unlocked"
+            );
+
+            if(index < unlocked - 1) {
+
+                button.classList.add(
+                    "completed"
+                );
+
+            }
+
+            button.disabled = false;
+
+            button.onclick =
+                function() {
+
+                    startLevel(index);
+
+                };
+
+        }
+        else {
+
+            button.disabled = true;
+
+        }
+
+
+        let icon =
+            index < unlocked
+            ? "▶️"
+            : "🔒";
+
+
+        button.innerHTML = `
+
+            <span class="level-number">
+                ${icon} ${index + 1}
+            </span>
+
+            ${level.name}
+
+        `;
+
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+function showMenu() {
+
+    clearIntervals();
+
+    playing = false;
+
+    document.getElementById(
+        "gameScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "menu"
+    ).style.display = "block";
+
+    createLevelMenu();
+
+}
+
+
+// ==================================================
+// INICIAR FASE
+// ==================================================
+
+function startLevel(index) {
+
+    currentLevel = index;
+
+    document.getElementById(
+        "menu"
+    ).style.display = "none";
+
+    document.getElementById(
+        "gameScreen"
+    ).style.display = "block";
+
+    restartLevel();
+
+}
+
+
+// ==================================================
 // CRIAR MAPA
-// ==========================================
+// ==================================================
 
 function createMap() {
 
-    /*
-       Remove somente as paredes
-       antigas.
-    */
-
     document
         .querySelectorAll(".wall")
-        .forEach(w => w.remove());
+        .forEach(
+            wall => wall.remove()
+        );
 
 
     for(let y = 0; y < ROWS; y++) {
@@ -525,7 +692,8 @@ function createMap() {
                 const wall =
                     document.createElement("div");
 
-                wall.className = "wall";
+                wall.className =
+                    "wall";
 
                 wall.style.left =
                     (x * 5) + "%";
@@ -544,9 +712,9 @@ function createMap() {
 }
 
 
-// ==========================================
+// ==================================================
 // CRIAR OBJETO
-// ==========================================
+// ==================================================
 
 function createObject(
     id,
@@ -563,33 +731,31 @@ function createObject(
 
     element.textContent = emoji;
 
-    element.className = className;
+    element.className =
+        className;
 
     game.appendChild(element);
 
 
     const object = {
 
-        element: element,
-
-        x: x,
-
-        y: y
+        element,
+        x,
+        y
 
     };
 
 
     updatePosition(object);
 
-
     return object;
 
 }
 
 
-// ==========================================
+// ==================================================
 // POSIÇÃO
-// ==========================================
+// ==================================================
 
 function updatePosition(object) {
 
@@ -602,9 +768,9 @@ function updatePosition(object) {
 }
 
 
-// ==========================================
+// ==================================================
 // PAREDE
-// ==========================================
+// ==================================================
 
 function isWall(x,y) {
 
@@ -624,9 +790,9 @@ function isWall(x,y) {
 }
 
 
-// ==========================================
-// MOVIMENTO DO JOGADOR
-// ==========================================
+// ==================================================
+// MOVIMENTO
+// ==================================================
 
 function move(dx,dy) {
 
@@ -654,30 +820,28 @@ function move(dx,dy) {
 
     updatePosition(player);
 
-
-    checkObjects();
-
+    checkInteractions();
 
     updateFlashlight();
 
 }
 
 
-// ==========================================
+// ==================================================
 // TECLADO
-// ==========================================
+// ==================================================
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-        const k =
+        const key =
             event.key.toLowerCase();
 
 
         if(
-            k === "arrowup" ||
-            k === "w"
+            key === "arrowup" ||
+            key === "w"
         ) {
 
             event.preventDefault();
@@ -686,10 +850,9 @@ document.addEventListener(
 
         }
 
-
         else if(
-            k === "arrowdown" ||
-            k === "s"
+            key === "arrowdown" ||
+            key === "s"
         ) {
 
             event.preventDefault();
@@ -698,10 +861,9 @@ document.addEventListener(
 
         }
 
-
         else if(
-            k === "arrowleft" ||
-            k === "a"
+            key === "arrowleft" ||
+            key === "a"
         ) {
 
             event.preventDefault();
@@ -710,10 +872,9 @@ document.addEventListener(
 
         }
 
-
         else if(
-            k === "arrowright" ||
-            k === "d"
+            key === "arrowright" ||
+            key === "d"
         ) {
 
             event.preventDefault();
@@ -722,10 +883,9 @@ document.addEventListener(
 
         }
 
+        else if(key === "r") {
 
-        else if(k === "r") {
-
-            restartGame();
+            restartLevel();
 
         }
 
@@ -733,36 +893,42 @@ document.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // DISTÂNCIA
-// ==========================================
+// ==================================================
 
 function distance(a,b) {
 
-    return Math.abs(a.x-b.x)
-        +
-        Math.abs(a.y-b.y);
+    return Math.abs(
+        a.x - b.x
+    )
+    +
+    Math.abs(
+        a.y - b.y
+    );
 
 }
 
 
-// ==========================================
-// CAMINHO LIVRE ENTRE MONSTRO E JOGADOR
-// ==========================================
+// ==================================================
+// VISÃO DO MONSTRO
+// ==================================================
 
-function canSeePlayer(monster) {
+function canSeePlayer() {
 
-    /*
-       O monstro só enxerga se estiver
-       na mesma linha ou coluna.
+    const dist =
+        distance(
+            hunter,
+            player
+        );
 
-       E não pode existir parede entre eles.
-    */
+
+    const settings =
+        levels[currentLevel];
 
 
     if(
-        monster.x !== player.x &&
-        monster.y !== player.y
+        dist > settings.vision
     ) {
 
         return false;
@@ -770,31 +936,46 @@ function canSeePlayer(monster) {
     }
 
 
-    // Horizontal
+    /*
+       Se estiver na mesma linha
+       ou coluna, verifica paredes.
+    */
 
-    if(monster.y === player.y) {
+    if(
+        hunter.x !== player.x &&
+        hunter.y !== player.y
+    ) {
+
+        return false;
+
+    }
+
+
+    if(
+        hunter.x === player.x
+    ) {
 
         const start =
             Math.min(
-                monster.x,
-                player.x
+                hunter.y,
+                player.y
             );
 
         const end =
             Math.max(
-                monster.x,
-                player.x
+                hunter.y,
+                player.y
             );
 
 
         for(
-            let x = start + 1;
-            x < end;
-            x++
+            let y = start + 1;
+            y < end;
+            y++
         ) {
 
             if(
-                map[monster.y][x] === "1"
+                map[y][hunter.x] === "1"
             ) {
 
                 return false;
@@ -808,31 +989,31 @@ function canSeePlayer(monster) {
     }
 
 
-    // Vertical
-
-    if(monster.x === player.x) {
+    if(
+        hunter.y === player.y
+    ) {
 
         const start =
             Math.min(
-                monster.y,
-                player.y
+                hunter.x,
+                player.x
             );
 
         const end =
             Math.max(
-                monster.y,
-                player.y
+                hunter.x,
+                player.x
             );
 
 
         for(
-            let y = start + 1;
-            y < end;
-            y++
+            let x = start + 1;
+            x < end;
+            x++
         ) {
 
             if(
-                map[y][monster.x] === "1"
+                map[hunter.y][x] === "1"
             ) {
 
                 return false;
@@ -851,18 +1032,24 @@ function canSeePlayer(monster) {
 }
 
 
-// ==========================================
-// MOVIMENTO DO MONSTRO
-// ==========================================
+// ==================================================
+// MONSTRO
+// ==================================================
+
+let hunting = false;
+
 
 function moveHunter() {
 
-    const hunter =
-        monsters[0];
+    if(!playing) return;
 
 
-    const seesPlayer =
-        canSeePlayer(hunter);
+    const settings =
+        levels[currentLevel];
+
+
+    const sees =
+        canSeePlayer();
 
 
     const dist =
@@ -872,27 +1059,14 @@ function moveHunter() {
         );
 
 
-    /*
-       Se o monstro estiver vendo
-       o jogador, começa a perseguição.
-    */
-
-    if(
-        seesPlayer &&
-        dist <= 10
-    ) {
+    if(sees) {
 
         hunting = true;
 
     }
 
 
-    /*
-       Se estiver muito longe,
-       para de perseguir.
-    */
-
-    if(dist > 12) {
+    if(dist > settings.vision + 3) {
 
         hunting = false;
 
@@ -913,11 +1087,6 @@ function moveHunter() {
 
 
     if(hunting) {
-
-        /*
-           Ordena os movimentos para
-           tentar chegar perto do jogador.
-        */
 
         moves.sort(
             function(a,b) {
@@ -946,18 +1115,13 @@ function moveHunter() {
                     );
 
 
-                return da-db;
+                return da - db;
 
             }
         );
 
     }
     else {
-
-        /*
-           Se não estiver perseguindo,
-           anda aleatoriamente.
-        */
 
         moves.sort(
             () =>
@@ -967,7 +1131,7 @@ function moveHunter() {
     }
 
 
-    for(let m of moves) {
+    for(const m of moves) {
 
         const nx =
             hunter.x + m.dx;
@@ -991,8 +1155,6 @@ function moveHunter() {
     }
 
 
-    // Colisão
-
     if(
         hunter.x === player.x &&
         hunter.y === player.y
@@ -1008,21 +1170,13 @@ function moveHunter() {
 }
 
 
-// ==========================================
+// ==================================================
 // ARMADILHAS
-// ==========================================
+// ==================================================
 
 function checkTraps() {
 
-    for(
-        let i = 1;
-        i < monsters.length;
-        i++
-    ) {
-
-        const trap =
-            monsters[i];
-
+    for(const trap of traps) {
 
         if(
             trap.x === player.x &&
@@ -1030,7 +1184,6 @@ function checkTraps() {
         ) {
 
             loseLife();
-
 
             if(playing) {
 
@@ -1048,67 +1201,41 @@ function checkTraps() {
 }
 
 
-// ==========================================
-// CHAVE / PORTA
-// ==========================================
+// ==================================================
+// CHAVES
+// ==================================================
 
-function checkObjects() {
+function checkKeys() {
 
-    checkTraps();
+    for(let i = keys.length - 1; i >= 0; i--) {
 
-
-    // Chave
-
-    if(
-        player.x === key.x &&
-        player.y === key.y
-    ) {
-
-        hasKey = true;
-
-        key.element.remove();
+        const k = keys[i];
 
 
-        document.getElementById(
-            "keyStatus"
-        ).textContent =
-            "SIM 🔑";
+        if(
+            player.x === k.x &&
+            player.y === k.y
+        ) {
+
+            k.element.remove();
+
+            keys.splice(i,1);
+
+            keysCollected++;
 
 
-        document.getElementById(
-            "message"
-        ).textContent =
-            "🔑 Você encontrou a chave! Agora fuja!";
-
-    }
-
-
-    // Porta
-
-    if(
-        player.x === door.x &&
-        player.y === door.y
-    ) {
-
-        if(hasKey) {
-
-            playing = false;
+            document.getElementById(
+                "keyStatus"
+            ).textContent =
+                keysCollected +
+                "/" +
+                levels[currentLevel].keys;
 
 
             document.getElementById(
                 "message"
             ).textContent =
-                "🎉 VOCÊ ESCAPOU! 🎉";
-
-
-        }
-
-        else {
-
-            document.getElementById(
-                "message"
-            ).textContent =
-                "🔒 Você precisa da chave!";
+                "🔑 Você encontrou uma chave!";
 
         }
 
@@ -1117,9 +1244,57 @@ function checkObjects() {
 }
 
 
-// ==========================================
+// ==================================================
+// PORTA
+// ==================================================
+
+function checkDoor() {
+
+    if(
+        player.x === door.x &&
+        player.y === door.y
+    ) {
+
+        if(
+            keysCollected ===
+            levels[currentLevel].keys
+        ) {
+
+            winLevel();
+
+        }
+        else {
+
+            document.getElementById(
+                "message"
+            ).textContent =
+                "🔒 Ainda faltam chaves!";
+
+        }
+
+    }
+
+}
+
+
+// ==================================================
+// INTERAÇÕES
+// ==================================================
+
+function checkInteractions() {
+
+    checkKeys();
+
+    checkTraps();
+
+    checkDoor();
+
+}
+
+
+// ==================================================
 // PERDER VIDA
-// ==========================================
+// ==================================================
 
 function loseLife() {
 
@@ -1139,6 +1314,8 @@ function loseLife() {
 
         playing = false;
 
+        clearIntervals();
+
 
         document.getElementById(
             "message"
@@ -1157,10 +1334,6 @@ function loseLife() {
         "😱 Você foi encontrado!";
 
 
-    /*
-       Volta para o começo.
-    */
-
     player.x = 1;
 
     player.y = 1;
@@ -1171,9 +1344,9 @@ function loseLife() {
 }
 
 
-// ==========================================
-// STATUS DO MONSTRO
-// ==========================================
+// ==================================================
+// STATUS
+// ==================================================
 
 function updateHunterStatus() {
 
@@ -1181,7 +1354,6 @@ function updateHunterStatus() {
         document.getElementById(
             "hunterStatus"
         );
-
 
     const danger =
         document.getElementById(
@@ -1201,7 +1373,6 @@ function updateHunterStatus() {
             "block";
 
     }
-
     else {
 
         status.textContent =
@@ -1218,52 +1389,264 @@ function updateHunterStatus() {
 }
 
 
-// ==========================================
-// LANterna
-// ==========================================
+// ==================================================
+// LANTERNA
+// ==================================================
 
 function updateFlashlight() {
 
-    /*
-       Converte a posição do jogador
-       para porcentagem dentro da tela.
-    */
+    const size =
+        levels[currentLevel].flashlight;
+
 
     const px =
-        (
-            player.x * 5
-        ) + 2.5;
+        player.x * 5 + 2.5;
 
 
     const py =
-        (
-            player.y * 8.333
-        ) + 4.16;
+        player.y * 8.333 + 4.16;
 
 
     darkness.style.background =
 
         `radial-gradient(
-            circle 115px at ${px}% ${py}%,
+            circle ${size}px at ${px}% ${py}%,
             transparent 0px,
-            rgba(0,0,0,.10) 45px,
-            rgba(0,0,0,.55) 90px,
-            rgba(0,0,0,.88) 145px,
-            #000 220px
+            rgba(0,0,0,.12) ${size * .35}px,
+            rgba(0,0,0,.65) ${size * .7}px,
+            rgba(0,0,0,.92) ${size}px,
+            #000 ${size * 1.5}px
         )`;
 
 }
 
 
-// ==========================================
-// REINICIAR
-// ==========================================
+// ==================================================
+// TIMER
+// ==================================================
 
-function restartGame() {
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    const time =
+        levels[currentLevel].time;
+
+
+    if(time <= 0) {
+
+        document.getElementById(
+            "timer"
+        ).textContent =
+            "∞";
+
+        return;
+
+    }
+
+
+    timerValue = time;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+        timerValue + "s";
+
+
+    timerInterval =
+        setInterval(function() {
+
+            if(!playing) return;
+
+
+            timerValue--;
+
+
+            document.getElementById(
+                "timer"
+            ).textContent =
+                timerValue + "s";
+
+
+            if(timerValue <= 0) {
+
+                playing = false;
+
+                clearIntervals();
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "⏰ O TEMPO ACABOU!";
+
+            }
+
+        },1000);
+
+}
+
+
+// ==================================================
+// LIMPAR INTERVALOS
+// ==================================================
+
+function clearIntervals() {
+
+    clearInterval(
+        hunterInterval
+    );
+
+    clearInterval(
+        timerInterval
+    );
+
+}
+
+
+// ==================================================
+// VENCER FASE
+// ==================================================
+
+function winLevel() {
+
+    playing = false;
+
+    clearIntervals();
+
 
     /*
-       Remove objetos antigos.
+       Desbloqueia próxima fase.
     */
+
+    const progress =
+        getProgress();
+
+
+    if(
+        currentLevel + 2 >
+        progress
+    ) {
+
+        setProgress(
+            Math.min(
+                5,
+                currentLevel + 2
+            )
+        );
+
+    }
+
+
+    document.getElementById(
+        "victoryText"
+    ).textContent =
+
+        currentLevel < 4
+
+        ? "Você desbloqueou a próxima fase! 🔓"
+
+        : "🏆 Você terminou todas as fases!";
+
+
+    document.getElementById(
+        "victory"
+    ).style.display =
+        "flex";
+
+}
+
+
+// ==================================================
+// PRÓXIMA FASE
+// ==================================================
+
+function nextLevel() {
+
+    document.getElementById(
+        "victory"
+    ).style.display =
+        "none";
+
+
+    if(currentLevel < 4) {
+
+        startLevel(
+            currentLevel + 1
+        );
+
+    }
+    else {
+
+        showMenu();
+
+    }
+
+}
+
+
+// ==================================================
+// REINICIAR FASE
+// ==================================================
+
+function restartLevel() {
+
+    clearIntervals();
+
+
+    document.getElementById(
+        "victory"
+    ).style.display =
+        "none";
+
+
+    playing = true;
+
+    hunting = false;
+
+    lives = 3;
+
+    keysCollected = 0;
+
+
+    const settings =
+        levels[currentLevel];
+
+
+    document.getElementById(
+        "levelTitle"
+    ).textContent =
+        "FASE " +
+        (currentLevel + 1) +
+        " — " +
+        settings.name;
+
+
+    document.getElementById(
+        "lives"
+    ).textContent =
+        "3";
+
+
+    document.getElementById(
+        "keyStatus"
+    ).textContent =
+        "0/" +
+        settings.keys;
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Encontre " +
+        settings.keys +
+        (settings.keys === 1
+            ? " chave"
+            : " chaves") +
+        " e escape!";
+
 
     document
         .querySelectorAll(
@@ -1274,33 +1657,6 @@ function restartGame() {
         );
 
 
-    hasKey = false;
-
-    lives = 3;
-
-    playing = true;
-
-    hunting = false;
-
-
-    document.getElementById(
-        "keyStatus"
-    ).textContent =
-        "NÃO";
-
-
-    document.getElementById(
-        "lives"
-    ).textContent =
-        "3";
-
-
-    document.getElementById(
-        "message"
-    ).textContent =
-        "Encontre a 🔑 chave...";
-
-
     createMap();
 
 
@@ -1309,20 +1665,9 @@ function restartGame() {
     player =
         createObject(
             "player",
-            "🧙",
+            "👧",
             1,
             1
-        );
-
-
-    // Chave
-
-    key =
-        createObject(
-            "key",
-            "🔑",
-            17,
-            10
         );
 
 
@@ -1337,11 +1682,47 @@ function restartGame() {
         );
 
 
-    // ==================================
-    // MONSTRO PERSEGUIDOR
-    // ==================================
+    // Chaves
 
-    const hunter =
+    keys = [];
+
+
+    const keyPositions = [
+
+        [17,10],
+
+        [12,7]
+
+    ];
+
+
+    for(
+        let i = 0;
+        i < settings.keys;
+        i++
+    ) {
+
+        const position =
+            keyPositions[i];
+
+
+        const newKey =
+            createObject(
+                "key" + i,
+                "🔑",
+                position[0],
+                position[1]
+            );
+
+
+        keys.push(newKey);
+
+    }
+
+
+    // Perseguidor
+
+    hunter =
         createObject(
             "hunter",
             "👹",
@@ -1351,67 +1732,106 @@ function restartGame() {
         );
 
 
-    // ==================================
-    // ARMADILHA 1
-    // ==================================
+    // Armadilhas
 
-    const trap1 =
-        createObject(
-            "trap1",
-            "👺",
-            7,
-            9,
-            "monster trap"
-        );
+    traps = [];
 
 
-    // ==================================
-    // ARMADILHA 2
-    // ==================================
+    const trapPositions = [
 
-    const trap2 =
-        createObject(
-            "trap2",
-            "👿",
-            14,
-            10,
-            "monster trap"
-        );
+        [7,9],
 
+        [14,10],
 
-    monsters = [
+        [5,5],
 
-        hunter,
+        [16,7],
 
-        trap1,
+        [11,10],
 
-        trap2
+        [3,9]
 
     ];
+
+
+    for(
+        let i = 0;
+        i < settings.traps;
+        i++
+    ) {
+
+        const position =
+            trapPositions[i];
+
+
+        const trap =
+            createObject(
+                "trap" + i,
+                i % 2 === 0
+                    ? "👺"
+                    : "👿",
+                position[0],
+                position[1],
+                "monster trap"
+            );
+
+
+        traps.push(trap);
+
+    }
 
 
     updateFlashlight();
 
     updateHunterStatus();
 
+
+    /*
+       Começa o perseguidor.
+    */
+
+    hunterInterval =
+        setInterval(
+            moveHunter,
+            settings.hunterSpeed
+        );
+
+
+    startTimer();
+
 }
 
 
-// ==========================================
-// IA DO MONSTRO
-// ==========================================
+// ==================================================
+// APAGAR PROGRESSO
+// ==================================================
 
-setInterval(
-    moveHunter,
-    650
-);
+function resetProgress() {
+
+    const confirmReset =
+        confirm(
+            "Tem certeza que deseja apagar todas as fases desbloqueadas?"
+        );
 
 
-// ==========================================
+    if(confirmReset) {
+
+        localStorage.removeItem(
+            "labyrinthProgress"
+        );
+
+        createLevelMenu();
+
+    }
+
+}
+
+
+// ==================================================
 // COMEÇAR
-// ==========================================
+// ==================================================
 
-restartGame();
+createLevelMenu();
 
 </script>
 
